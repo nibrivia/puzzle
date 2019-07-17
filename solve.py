@@ -24,16 +24,16 @@ def solve(cards, board = EMPTY_BOARD, pos = 0):
 
     for i, c in enumerate(cards):
         # place card
-        for _ in range(5):
-            placed, board = place(board, c, pos)
-            if placed:
+        for _ in range(4):
+            if place(board, c, pos):
+                board[pos] = c
                 remaining_cards = cards[:i] + cards[i+1:]
                 # recurse
                 solved, board = solve(remaining_cards, board, pos + 1)
                 if solved:
                     # if success, return
                     return True, board
-                c.rotate()
+            c.rotate()
 
             # if we're here, we failed, undo, do next
             board[pos] = None
@@ -58,10 +58,7 @@ def place(board, card, pos):
         if left.right != card.left:
             fits = False
 
-    if fits:
-        board[pos] = card
-
-    return fits, board
+    return fits
 
 def rc_to_pos(row, col):
     return WIDTH*row + col
