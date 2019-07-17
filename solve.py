@@ -6,9 +6,20 @@ class Card:
         # top -> right (clockwise)
         self.right, self.bot, self.left, self.top = colors
 
-WIDTH  = 3
-HEIGHT = 3
+WIDTH  = 2
+HEIGHT = 2
 EMPTY_BOARD = [None for _ in range(WIDTH*HEIGHT)]
+
+colors = [
+        ['bl', 'br', 'bl', 'or'],
+        ['br', 'bl', 'br', 'gr'],
+        ['or', 'br', 'br', 'bl'],
+        ['or', 'or', 'bl', 'gr'],
+        ]
+
+cards = [Card(cols) for cols in colors]
+board = EMPTY_BOARD
+solve(cards, board)
 
 def solve(cards, board = EMPTY_BOARD, pos = 0):
     for i, c in enumerate(cards):
