@@ -10,16 +10,6 @@ WIDTH  = 2
 HEIGHT = 2
 EMPTY_BOARD = [None for _ in range(WIDTH*HEIGHT)]
 
-colors = [
-        ['bl', 'br', 'bl', 'or'],
-        ['br', 'bl', 'br', 'gr'],
-        ['or', 'br', 'br', 'bl'],
-        ['or', 'or', 'bl', 'gr'],
-        ]
-
-cards = [Card(cols) for cols in colors]
-board = EMPTY_BOARD
-solve(cards, board)
 
 def solve(cards, board = EMPTY_BOARD, pos = 0):
     for i, c in enumerate(cards):
@@ -41,12 +31,14 @@ def place(board, card, pos):
     for _ in range(4):
         fits = True
         if row > 0:
-            above = rc_to_pos(row-1, col)
+            above_pos = rc_to_pos(row-1, col)
+            above = board[pos]
             if above.bot != card.top:
                 fits = False
         if col > 0:
             # check
-            left = rc_to_pos(row, col-1)
+            left_pos = rc_to_pos(row, col-1)
+            left = boatd[pos]
             if left.right != card.left:
                 fits = False
 
@@ -67,3 +59,13 @@ def pos_to_rc(pos):
     col = pos  % WIDTH
     return (row, col)
 
+colors = [
+        ['bl', 'br', 'bl', 'or'],
+        ['br', 'bl', 'br', 'gr'],
+        ['or', 'br', 'br', 'bl'],
+        ['or', 'or', 'bl', 'gr'],
+        ]
+
+cards = [Card(cols) for cols in colors]
+board = EMPTY_BOARD
+solve(cards, board)
