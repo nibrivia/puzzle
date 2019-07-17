@@ -9,40 +9,18 @@ class Card:
          self.right, self.bot, self.left, self.top = (
            self.top, self.right, self.bot, self.left)
 
-         self.right_dir, self.bot_dir, self.left_dir, self.top = (
-           self.top_dir, self.right_dir, self.bot_dir, self.left)
+         self.right_dir, self.bot_dir, self.left_dir, self.top_dir = (
+           self.top_dir, self.right_dir, self.bot_dir, self.left_dir)
 
 
 
     def __str__(self):
         colors = [self.top, self.right, self.bot, self.left]
-        return str(colors)
+        dirs = [self.top_dir, self.right_dir, self.bot_dir, self.left_dir]
+        return " ".join(c+"-"+d for c, d in zip(colors, dirs))
 
-WIDTH  = 2
-HEIGHT = 2
-EMPTY_BOARD = [None for _ in range(WIDTH*HEIGHT)]
-
-
-def solve(cards, board = EMPTY_BOARD, pos = 0):
-    print([str(c) for c in board])
-    if len(cards) == 0:
-        return True, board
-
-    for i, c in enumerate(cards):
-        # place card
-        for _ in range(4):
-            if place(board, c, pos):
-         self.right, self.bot, self.left, self.top = (
-           self.top, self.right, self.bot, self.left)
-
-
-
-    def __str__(self):
-        colors = [self.top, self.right, self.bot, self.left]
-        return str(colors)
-
-WIDTH  = 2
-HEIGHT = 2
+WIDTH  = 3
+HEIGHT = 3
 EMPTY_BOARD = [None for _ in range(WIDTH*HEIGHT)]
 
 
@@ -78,14 +56,14 @@ def place(board, card, pos):
     if row > 0:
         above_pos = rc_to_pos(row-1, col)
         above = board[above_pos]
-        if above.bot     != card.top or
+        if above.bot     != card.top or \
            above.bot_dir == card.top_dir:
             fits = False
     if col > 0:
         # check
         left_pos = rc_to_pos(row, col-1)
         left = board[left_pos]
-        if left.right     != card.left or
+        if left.right     != card.left or \
            left.right_dir == card.left_dir:
             fits = False
 
@@ -104,6 +82,12 @@ colors = [
         ['br', 'bl', 'br', 'gr'],
         ['or', 'br', 'br', 'bl'],
         ['or', 'or', 'bl', 'gr'],
+
+        ['br', 'or', 'bl', 'br'],
+        ['or', 'bl', 'gr', 'or'],
+        ['br', 'gr', 'bl', 'gr'],
+        ['or', 'gr', 'gr', 'or'],
+        ['bl', 'gr', 'gr', 'bl'],
         ]
 
 dirs = [
@@ -111,6 +95,12 @@ dirs = [
         ['i',  'i',  'o',  'o'],
         ['i',  'o',  'o',  'i'],
         ['i',  'o',  'o',  'i'],
+
+        ['i',  'i',  'o',  'o'],
+        ['i',  'o',  'o',  'i'],
+        ['o',  'o',  'i',  'i'],
+        ['i',  'i',  'o',  'o'],
+        ['o',  'o',  'i',  'i'],
         ]
 
 cards = [Card(cols, dirs) for cols, dirs in zip(colors, dirs)]
