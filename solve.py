@@ -25,7 +25,6 @@ EMPTY_BOARD = [None for _ in range(WIDTH*HEIGHT)]
 
 
 def solve(cards, board = EMPTY_BOARD, pos = 0):
-    print([str(c) for c in board])
     if len(cards) == 0:
         return True, board
 
@@ -49,7 +48,10 @@ def solve(cards, board = EMPTY_BOARD, pos = 0):
     board[pos] = None
     return False, board
 
+counter = 0
 def place(board, card, pos):
+    global counter
+    counter += 1
     row, col = pos_to_rc(pos)
 
     fits = True
@@ -104,11 +106,8 @@ dirs = [
         ]
 
 cards = [Card(cols, dirs) for cols, dirs in zip(colors, dirs)]
-for c in cards:
-    print(c)
-print("")
-
 board = EMPTY_BOARD
+
 s, board = solve(cards, board)
-print(s)
+print(counter)
 print([str(c) for c in board])
