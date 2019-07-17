@@ -6,7 +6,10 @@ class Card:
         # top -> right (clockwise)
         self.right, self.bot, self.left, self.top = colors
 
-EMPTY_BOARD = [None for _ in range(9)]
+WIDTH  = 3
+HEIGHT = 3
+EMPTY_BOARD = [None for _ in range(WIDTH*HEIGHT)]
+
 def solve(cards, board = EMPTY_BOARD, pos = 0):
     for i, c in enumerate(cards):
         # place card
@@ -46,10 +49,10 @@ def place(board, card, pos):
     return False
 
 def rc_to_pos(row, col):
-    return 3*row + col
+    return WIDTH*row + col
 
 def pos_to_rc(pos):
-    row = pos // 3
-    col = pos  % 3
+    row = pos // WIDTH
+    col = pos  % WIDTH
     return (row, col)
 
