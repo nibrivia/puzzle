@@ -47,7 +47,7 @@ class Card:
                '|           |\n'+\
                '| '+leftsym+'       '+rightsym+' |\n'+\
                '|           |\n'+\
-               '|_____'+botsym+'_____|\n'
+               '|_____'+botsym+'_____|'
                
         #return " ".join(c+"-"+d for c, d in zip(colors, dirs))
 
@@ -112,7 +112,27 @@ def pos_to_rc(pos):
     return (row, col)
     
 def photorealism(board):
-    return ' '.join([str(c) for c in board])
+    boardstr = ''
+    
+    for row in range(HEIGHT):
+        rowstr = ''
+        for col in range(WIDTH):
+            pos = rc_to_pos(row, col)
+            card = str(board[pos])
+            
+            if rowstr == '':
+                rowstr = card
+            else:
+                rowstr_lines = rowstr.split('\n')
+                card_lines   =   card.split('\n')
+                rowstr = ''
+                for row_line, card_line in zip(rowstr_lines, card_lines):
+                    rowstr += row_line + card_line + "\n"
+            
+        
+        boardstr += rowstr
+            
+    return boardstr
 	
     
    
