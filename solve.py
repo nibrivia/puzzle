@@ -12,12 +12,44 @@ class Card:
          self.right_dir, self.bot_dir, self.left_dir, self.top_dir = (
            self.top_dir, self.right_dir, self.bot_dir, self.left_dir)
 
-
-
     def __str__(self):
         colors = [self.top, self.right, self.bot, self.left]
         dirs = [self.top_dir, self.right_dir, self.bot_dir, self.left_dir]
-        return " ".join(c+"-"+d for c, d in zip(colors, dirs))
+        #____________
+	    #|     ^     |
+	    #|           |
+	    #| <       < | 
+	    #|           |
+	    #|_____v_____|
+	    #	
+        #bl = 34
+        #br = 35
+        #or = 33
+        #gr = 32 vv replace 32 in thing
+        #print("\033[1;32;40m Bright Green  \n")
+        colormap = {'bl':'34', 'br':'35', 'or':'33', 'gr':'32'}
+        dirmap = {'top_dir':  {'i':'v','o':'^'},
+                  'right_dir':{'i':'<','o':'>'},
+                  'bot_dir':  {'i':'^','o':'v'},
+                  'left_dir': {'i':'>','o':'<'}}
+                  
+        topsym = '\033[1;' + colormap[self.top] + ';49m' + str(dirmap['top_dir'][self.top_dir])+'\033[1;39;49m'
+        
+        rightsym = '\033[1;' + colormap[self.right] + ';49m' + str(dirmap['right_dir'][self.right_dir])+'\033[1;39;49m'
+        
+        botsym = '\033[1;' + colormap[self.bot] + ';49m' + str(dirmap['bot_dir'][self.bot_dir])+'\033[1;39;49m'
+        
+        leftsym = '\033[1;' + colormap[self.left] + ';49m' + str(dirmap['left_dir'][self.left_dir])+'\033[1;39;49m'
+
+        
+        return '____________ \n'+\
+               '|     '+topsym+'     |\n'+\
+               '|           |\n'+\
+               '| '+leftsym+'       '+rightsym+' |\n'+\
+               '|           |\n'+\
+               '|_____'+botsym+'_____|\n'
+               
+        #return " ".join(c+"-"+d for c, d in zip(colors, dirs))
 
 WIDTH  = 3
 HEIGHT = 3
@@ -78,7 +110,12 @@ def pos_to_rc(pos):
     row = pos // WIDTH
     col = pos  % WIDTH
     return (row, col)
-
+    
+def photorealism(board):
+    return ' '.join([str(c) for c in board])
+	
+    
+   
 colors = [
         ['bl', 'br', 'bl', 'or'],
         ['br', 'bl', 'br', 'gr'],
@@ -110,4 +147,5 @@ board = EMPTY_BOARD
 
 s, board = solve(cards, board)
 print(counter)
-print([str(c) for c in board])
+
+print(photorealism(board))
