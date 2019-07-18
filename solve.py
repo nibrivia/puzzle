@@ -1,7 +1,6 @@
 class Card:
     def __init__(self, colors, dirs):
         self.top, self.right, self.bot, self.left = colors
-
         self.top_dir, self.right_dir, self.bot_dir, self.left_dir = dirs
 
     def rotate(self):
@@ -141,7 +140,6 @@ colors = [
         ['br', 'bl', 'br', 'gr'],
         ['or', 'br', 'br', 'bl'],
         ['or', 'or', 'bl', 'gr'],
-
         ['br', 'or', 'bl', 'br'],
         ['or', 'bl', 'gr', 'or'],
         ['br', 'gr', 'bl', 'gr'],
@@ -154,7 +152,6 @@ dirs = [
         ['i',  'i',  'o',  'o'],
         ['i',  'o',  'o',  'i'],
         ['i',  'o',  'o',  'i'],
-
         ['i',  'i',  'o',  'o'],
         ['i',  'o',  'o',  'i'],
         ['o',  'o',  'i',  'i'],
